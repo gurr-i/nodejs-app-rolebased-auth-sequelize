@@ -3,10 +3,10 @@ const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
 const Op = db.Sequelize.Op;
-var jwt = require("jsonwebtoken");  
+var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-exports.signup = (req, res) => {
-    // Save User to Database
+exports.signup = async (req, res) => {
+    // Save User data to Database after hashing passwords database
     User.create({
         username: req.body.username,
         email: req.body.email,
@@ -22,13 +22,13 @@ exports.signup = (req, res) => {
                     }
                 }).then(roles => {
                     user.setRoles(roles).then(() => {
-                        res.send({ message: "User was registered successfully!" });
+                        res.send({ message: "User registration Successful!" });
                     });
                 });
             } else {
                 // user role = 1
                 user.setRoles([1]).then(() => {
-                    res.send({ message: "User was registered successfully!" });
+                    res.send({ message: "User was registered Successfully!" });
                 });
             }
         })
@@ -36,7 +36,7 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err.message });
         });
 };
-exports.signin = (req, res) => {
+exports.signin = async (req, res) => {
     User.findOne({
         where: {
             username: req.body.username

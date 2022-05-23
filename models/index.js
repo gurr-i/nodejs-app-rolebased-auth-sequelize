@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
-    operatorsAliases: false,
+    // operatorsAliases: false,
 
     pool: {
         max: dbConfig.pool.max,
@@ -13,6 +13,32 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
         idle: dbConfig.pool.idle
     }
 });
+
+// Checking fi connnection is established or not.
+async function checkauthenticate() {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully!');
+    } catch (error) {
+        console.error('Error: Unable to connect to the database:', error);
+    }
+}
+
+checkauthenticate()
+
+
+// To close the connection
+async function closeauthenticateconnection() {
+    try {
+        await sequelize.close();
+        console.log('Connection has been closed successfully!');
+    } catch (error) {
+        console.error('Error: Unable to Disconnect to the database:', error);
+    }
+}
+
+// closeauthenticateconnection()
+
 const db = {};
 
 db.Sequelize = Sequelize;

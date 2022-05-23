@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 exports.signup = async (req, res) => {
-    // Save User data to Database after hashing passwords database
+    // Save User data to Database after hashing passwords 
     User.create({
         username: req.body.username,
         email: req.body.email,

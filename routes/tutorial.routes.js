@@ -1,3 +1,5 @@
+const cors = require("cors");
+
 module.exports = app => {
     const tutorials = require("../controllers/tutorial.controller.js");
 
@@ -7,7 +9,7 @@ module.exports = app => {
     router.post("/", tutorials.create);
 
     // Retrieve all Tutorials
-    router.get("/", tutorials.findAll);
+    router.get("/", cors(), tutorials.findAll);
 
     // Retrieve all published Tutorials
     router.get("/published", tutorials.findAllPublished);
